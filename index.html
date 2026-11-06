@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>TaleForge — Web Novels, Chapters & ChoiceScript Games</title>
+  <meta name="description" content="Discover, read, write, and play web novels, serialized chapters, and interactive ChoiceScript games in one modern platform." />
+  
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              main: '#090d16',
+              surface: '#121927',
+              border: '#23304a',
+              light: '#f1f5f9',
+              muted: '#94a3b8',
+              primary: '#7c3aed',
+              accent: '#38bdf8'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts for rich book typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600;700;800&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap" rel="stylesheet">
+
+  <!-- Custom Style Sheet -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="bg-brand-main text-brand-light flex flex-col min-h-screen">
+
+  <!-- Top Navigation Header -->
+  <header class="sticky top-0 z-40 bg-brand-main/90 backdrop-blur-md border-b border-brand-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 gap-4">
+        
+        <!-- Logo & Brand Title -->
+        <a href="#library" class="flex items-center space-x-3 text-decoration-none group flex-shrink-0">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-primary via-indigo-600 to-brand-accent p-0.5 shadow-lg shadow-brand-primary/20 group-hover:scale-105 transition-transform">
+            <div class="w-full h-full bg-brand-surface rounded-[10px] flex items-center justify-center text-brand-accent">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+            </div>
+          </div>
+          <div>
+            <div class="font-extrabold text-lg text-white tracking-tight flex items-center">
+              <span>TaleForge</span>
+              <span class="ml-2 text-[10px] px-1.5 py-0.5 rounded bg-brand-primary/20 text-brand-accent border border-brand-primary/40 font-mono">v1.0</span>
+            </div>
+            <div class="text-[10px] text-brand-muted hidden sm:block">Novels, Chapters & ChoiceScript Games</div>
+          </div>
+        </a>
+
+        <!-- Global Search Bar -->
+        <div class="flex-1 max-w-md hidden md:block">
+          <div class="relative">
+            <input id="global-search-input" type="text" placeholder="Search books, chapters, choice games, authors..." class="input-field text-xs pl-9 pr-4 py-2" />
+            <svg class="w-4 h-4 text-brand-muted absolute left-3 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+          </div>
+        </div>
+
+        <!-- Desktop Navigation Items -->
+        <nav class="hidden lg:flex items-center space-x-1">
+          <a href="#library" class="nav-link">
+            <span>Library</span>
+          </a>
+          <a href="#games" class="nav-link">
+            <span>🎮 ChoiceScript</span>
+          </a>
+          <a href="#novels" class="nav-link">
+            <span>📖 Web Novels</span>
+          </a>
+          <a href="#shelf" class="nav-link">
+            <span>🔖 My Shelf</span>
+          </a>
+          <a href="#studio" class="nav-link font-semibold text-brand-accent">
+            <span>✍️ Creator Studio</span>
+          </a>
+        </nav>
+
+        <!-- Header Actions -->
+        <div class="flex items-center space-x-3">
+          <a href="#studio" class="btn-primary text-xs px-3.5 py-2 rounded-xl flex items-center shadow-lg font-bold">
+            <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+            <span class="hidden sm:inline">Post Chapter / Game</span>
+            <span class="sm:hidden">Create</span>
+          </a>
+
+          <!-- Mobile Menu Hamburger Button -->
+          <button id="mobile-menu-btn" class="lg:hidden p-2 rounded-lg bg-white/5 border border-brand-border text-brand-muted hover:text-white" aria-label="Toggle navigation">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Mobile Slide-Down Menu -->
+    <div id="mobile-menu" class="hidden lg:hidden border-t border-brand-border bg-brand-surface px-4 py-4 space-y-3">
+      <div>
+        <input type="text" id="mobile-search-input" placeholder="Search stories, games..." class="input-field text-xs mb-3" oninput="document.getElementById('global-search-input').value = this.value; document.getElementById('global-search-input').dispatchEvent(new Event('input'));" />
+      </div>
+      <div class="space-y-1">
+        <a href="#library" class="nav-link block w-full py-2">📚 Browse All Library</a>
+        <a href="#games" class="nav-link block w-full py-2">🎮 ChoiceScript Interactive Games</a>
+        <a href="#novels" class="nav-link block w-full py-2">📖 Web Novels & Serialized Chapters</a>
+        <a href="#shelf" class="nav-link block w-full py-2">🔖 My Bookshelf & History</a>
+        <a href="#studio" class="nav-link block w-full py-2 font-bold text-brand-accent">✍️ Author Studio: Post Chapters & Create</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main View Routing Container -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <!-- View 1: Library & Catalog -->
+    <div id="library-view" class="view-pane"></div>
+
+    <!-- View 2: Book Details & Chapter Index -->
+    <div id="book-details-view" class="view-pane hidden"></div>
+
+    <!-- View 3: Web Novel Chapter Reader -->
+    <div id="reader-view" class="view-pane hidden"></div>
+
+    <!-- View 4: ChoiceScript Game Player -->
+    <div id="player-view" class="view-pane hidden"></div>
+
+    <!-- View 5: Author Studio (Post Chapters, Create Books, Host ChoiceScript) -->
+    <div id="studio-view" class="view-pane hidden"></div>
+
+    <!-- View 6: My Shelf / Saved Bookmarks -->
+    <div id="shelf-view" class="view-pane hidden"></div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="mt-auto border-t border-brand-border bg-brand-surface/60 py-8 text-xs text-brand-muted">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center space-x-2">
+        <span class="font-bold text-brand-light">TaleForge</span>
+        <span>— The Interactive Fiction & Web Novel Haven</span>
+      </div>
+      <div class="flex items-center space-x-4">
+        <a href="#library" class="hover:text-brand-light">Library</a>
+        <a href="#games" class="hover:text-brand-light">ChoiceScript Games</a>
+        <a href="#novels" class="hover:text-brand-light">Novels</a>
+        <a href="#studio" class="hover:text-brand-light">Post Chapter</a>
+        <a href="#studio" class="hover:text-brand-light" onclick="window.app?.studio && (window.app.studio.activeTab = 'backups'); window.location.hash='#studio'; window.app?.studio?.render();">Export Data</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Application Scripts -->
+  <script src="js/choicescript.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/reader.js"></script>
+  <script src="js/player.js"></script>
+  <script src="js/studio.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>
