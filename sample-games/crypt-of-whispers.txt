@@ -1,0 +1,267 @@
+*title The Crypt of Whispers
+*author Aeloria Thorne
+*scene_list
+  startup
+
+*create health 100
+*create max_health 100
+*create mana 50
+*create courage 60
+*create gold 25
+*create class "Unknown"
+*create weapon "None"
+*create relic_found false
+*create wight_defeated false
+*create potions 2
+
+You stand before the weathered granite archway of the Sunken Crypt of Karas-Vael. Heavy mist clings to your boots, and the smell of ancient damp earth and crushed nightshade fills the twilight air.
+
+Locals in Oakhaven speak of the Crypt only in hushed whispers. Some say an artifact of the First Dawn lies buried beneath its catacombs; others say whoever enters becomes food for the wandering shade known as the Wight of Ash.
+
+*page_break Steel your resolve
+
+Before you delve into the darkness, what path of mastery do you walk?
+
+*choice
+  #I am a Spellblade — weaver of astral arcana and quick blade.
+    *set class "Spellblade"
+    *set weapon "Runic Shortsword"
+    *set mana 80
+    *set courage 55
+    You draw your Runic Shortsword. The azure runes etched along its fuller hum with a faint, reassuring warmth.
+    *goto enter_crypt
+  #I am an Iron Vanguard — armored champion of the northern legions.
+    *set class "Vanguard"
+    *set weapon "Broadsword & Kite Shield"
+    *set health 130
+    *set max_health 130
+    *set courage 80
+    *set mana 20
+    You adjust the heavy iron straps of your breastplate. Your broadsword has seen a hundred battles; it will not fail you here.
+    *goto enter_crypt
+  #I am a Shadow Strider — rogue of the veiled alleys and quiet steps.
+    *set class "Shadow Strider"
+    *set weapon "Twin Shadow Daggers"
+    *set gold 50
+    *set courage 70
+    *set mana 40
+    You test the balanced grip of your twin daggers. Stealth and cunning are far deadlier than brash iron.
+    *goto enter_crypt
+
+*label enter_crypt
+*page_break Light a torch and step inside
+
+You push open the rusted iron gate with a groan that echoes down into subterranean vaults. Cold draft washes over your face. 
+
+Your torchlight flickers across damp limestone corridors. Ahead, the corridor splits into two distinct passageways:
+
+To the left, stairs descend into the [b]Ossuary of Weeping Bones[/b], where faint phosphorescent moss glimmers.
+To the right, an archway carved with arcane ward-glyphs leads toward the [b]Hall of Sunken Kings[/b].
+
+*choice
+  #Descend left into the Ossuary of Weeping Bones.
+    *goto ossuary
+  #Head right through the warded archway to the Hall of Sunken Kings.
+    *goto hall_kings
+  #Check your equipment and take a cautious breather first.
+    You pause in the threshold, inspecting your gear.
+    Your Class: ${class}.
+    Your Weapon: ${weapon}.
+    Potions remaining: ${potions}.
+    Your courage steels you against the gloom.
+    *set courage + 5
+    Now, you must pick your direction.
+    *choice
+      #Take the left path into the Ossuary.
+        *goto ossuary
+      #Take the right path into the Hall of Sunken Kings.
+        *goto hall_kings
+
+*label ossuary
+You descend thirty slick, moss-covered steps. Skulls and vertebrae are mortared into the curved walls in dizzying geometric mosaics. 
+
+Suddenly, your boot clicks against a loose flagstone! A clicking mechanism whirs inside the wall!
+
+*choice
+  #Dodge roll instinctively to the side!
+    *if (courage >= 60)
+      With lightning reflexes, you dive sideways as iron dart volleys pepper the wall where you stood a heartbeat ago!
+      *set courage + 5
+      *goto ossuary_cleared
+    *else
+      You react a fraction too late! A poisoned needle grazes your arm!
+      *set health - 25
+      You grit your teeth, feeling venom burn through your veins before your body purges it.
+      Health remaining: ${health}.
+      *goto ossuary_cleared
+  #Raise your shield or cast a warding flare.
+    *if (class = "Vanguard")
+      You snap your kite shield forward! The iron darts ricochet off the heavy boss with harmless sparks!
+      *goto ossuary_cleared
+    *elseif (class = "Spellblade")
+      *if (mana >= 20)
+        *set mana - 20
+        You snap your fingers, conjuring a barrier of shimmering starlight. The darts dissolve upon impact into motes of ash!
+        *goto ossuary_cleared
+      *else
+        Low on mana, your ward splutters! A dart grazes your shoulder!
+        *set health - 20
+        *goto ossuary_cleared
+    *else
+      Lacking a shield, you dive into the shadows, taking a glancing blow to your calf.
+      *set health - 15
+      *goto ossuary_cleared
+
+*label ossuary_cleared
+*page_break Press deeper into the chamber
+
+Beyond the trap, you discover an ornate sarcophagus adorned with silver filigree. The lid has already been partially slid ajar.
+
+Inside, resting upon withered velvet, is a velvet pouch of ancient sovereigns and an iridescent gemstone: the [b]Tear of Elyria[/b]!
+
+*set gold + 60
+*set relic_found true
+You pocket the 60 ancient coins and claim the Tear of Elyria! It pulses with restorative energy, restoring 20 Health.
+*set health + 20
+*if (health > max_health)
+  *set health max_health
+
+A reinforced door at the back of the ossuary leads straight into the inner sanctum.
+*goto inner_sanctum
+
+*label hall_kings
+You walk beneath the towering arches of the Hall of Sunken Kings. Stone statues of forgotten monarchs gaze down with hollow obsidian eyes.
+
+In the center of the hall stands a pedestaled font filled with swirling cerulean liquid. Ancient runes read: [i]"Drink of memory, or offer silver to the deep."[/i]
+
+*choice
+  #Drink from the cerulean font.
+    You cup your hands and drink. The liquid tastes like cold mountain rain and ozone!
+    Visions of celestial stars flash through your mind!
+    *set mana + 30
+    *set courage + 10
+    Your magical reserves swell with raw potential!
+    *goto inner_sanctum
+  #Drop 10 gold into the basin as an offering of respect.
+    *if (gold >= 10)
+      *set gold - 10
+      The coins dissolve into golden light that wraps around your weapon!
+      *set courage + 15
+      *set health + 25
+      *if (health > max_health)
+        *set health max_health
+      You feel blessed by the ancient spirits.
+      *goto inner_sanctum
+    *else
+      You do not have enough coins to offer. You bow your head with reverence and pass quietly.
+      *goto inner_sanctum
+  #Ignore the font and proceed directly toward the great iron door ahead.
+    Prudence is the warrior's greatest ally. You keep your focus sharp and advance toward the heavy iron doors.
+    *goto inner_sanctum
+
+*label inner_sanctum
+*page_break Enter the Grand Crypt
+
+The iron double doors swing open into a cavernous rotunda. Cold frost covers the floor. In the center floats a terrifying figure draped in burial shrouds, its eyes blazing with pale ghostly fire.
+
+The [b]Wight of Ash[/b] has awakened!
+
+"Intruder..." it hisses, voice echoing like scraping stones. "Your life-spark belongs to the tomb!"
+
+It draws a spectral scythe and hurtles toward you!
+
+*choice
+  #Unleash a blistering offensive strike!
+    *if (class = "Spellblade")
+      *if (mana >= 30)
+        *set mana - 30
+        You channel raw astral energy through your Runic Shortsword, engulfing the blade in white-hot flame! You lunge forward, slashing across the Wight's core!
+        The creature shrieks as celestial fire disintegrates its spectral bindings!
+        *set wight_defeated true
+        *goto victory
+      *else
+        Without sufficient mana, your strike fails to pierce the spirit realm. The Wight's scythe slashes across your chest!
+        *set health - 45
+        *if (health <= 0)
+          *goto defeat
+        *else
+          Desperate, you swing again with raw steel, finally banishing the spirit!
+          *set wight_defeated true
+          *goto victory
+    *elseif (class = "Vanguard")
+      You roar a northern battle cry and slam into the Wight with your kite shield, stunning the wraith before driving your broadsword clean through its cursed heart!
+      The blow shatters the creature into icy shards!
+      *set wight_defeated true
+      *goto victory
+    *else
+      You feint left and somersault beneath the sweeping scythe, burying your twin shadow daggers into the creature's ethereal spine!
+      Dark ichor dissolves into ash as the Wight collapses!
+      *set wight_defeated true
+      *goto victory
+
+  #Quaff a healing potion and adopt a defensive counter stance.
+    *if (potions > 0)
+      *set potions - 1
+      *set health + 40
+      *if (health > max_health)
+        *set health max_health
+      You down a crimson vial, feeling vitality surge through your limbs.
+      The Wight's scythe clips your guard, dealing 20 damage!
+      *set health - 20
+      Now seeing an opening in its recovery, you deliver a lethal counter-thrust!
+      *set wight_defeated true
+      *goto victory
+    *else
+      You reach for a potion belt, but find your pouches empty! The Wight takes advantage of your hesitation!
+      *set health - 40
+      *if (health <= 0)
+        *goto defeat
+      *else
+        Bleeding and battered, you gather your remaining will and strike back fiercely, banishing the phantom!
+        *set wight_defeated true
+        *goto victory
+
+  *selectable_if (relic_found = true) #Hold up the Tear of Elyria!
+    You hold aloft the Tear of Elyria! The holy gemstone blazes with blinding solar luminescence!
+    The Wight recoils, screaming in agony as the radiant dawn light vaporizes its unholy existence!
+    Not a drop of your blood was spilled!
+    *set wight_defeated true
+    *set courage + 25
+    *goto victory
+
+*label victory
+*page_break Bask in your triumph!
+
+The Wight of Ash dissolves into harmless crystalline dust that settles upon the crypt floor. Silence returns to the ancient subterranean halls.
+
+Behind the creature's altar, the sealed treasure vault of Karas-Vael grinds open!
+
+Mountains of gilded chalices, enchanted tomes, and the sacred [b]Crown of the Solar Sovereign[/b] await you!
+
+*set gold + 200
+
+*if (relic_found = true)
+  With both the Tear of Elyria and the Crown of the Solar Sovereign in your possession, songs of your bravery will be sung in every tavern and royal court from Oakhaven to the Citadel of Light!
+  You have achieved the [b]LEGENDARY HERO ENDING[/b]!
+*else
+  You emerge into the twilight carrying riches beyond measure. The curse on the valley is lifted, and your name will forever be etched in legend!
+  You have achieved the [b]CHAMPION'S ENDING[/b]!
+
+*stat_chart
+  text class Class
+  text weapon Weapon
+  percent health Health
+  percent courage Courage
+  text gold Gold
+  text potions Potions
+
+*ending
+
+*label defeat
+*page_break Darkness falls...
+
+Your strength fails as the Wight's icy blade chills your heart. Your vision fades to black as the catacombs claim another eternal guardian.
+
+Will your bones warn the next traveler... or will they join the weeping stones?
+
+*ending
