@@ -64,6 +64,18 @@
       "created_at": "2026-11-06T06:45:16.534Z",
       "sender": "ios",
       "is_cancelled": false
+    },
+    {
+      "id": "b0cb317a-d589-44c5-bcf0-1db7f61d2126",
+      "role": "agent",
+      "content": "**Yes, I wrote and generated both the sample books and the ChoiceScript games for you!**\n\nThey are original demo stories included so the website isn't empty on launch and you can immediately test all the features:\n\n* **The ChoiceScript Games** ([`crypt-of-whispers.txt`](file:///home/agent/workspace/sample-games/crypt-of-whispers.txt) and [`neon-horizon.txt`](file:///home/agent/workspace/sample-games/neon-horizon.txt)) were scripted with real ChoiceScript variables, stat charts, branching logic, and multiple endings to show off the interactive player engine.\n* **The Web Novels** (found in [`storage.js`](file:///home/agent/workspace/js/storage.js)) were written with full serialized chapters, word counts, and formatting to showcase reader mode, themes, and comments.\n\n---\n\n### Making it your own:\nYou don't have to keep them! The site is built for you to host your own content:\n1. **Host Your Own Games**: Tap **Creator Studio** → **Host ChoiceScript Game** to write or upload your own `.txt` ChoiceScript files.\n2. **Post Your Own Chapters**: Go to **Creator Studio** → **Post New Chapter** or **Create New Book** to publish your own stories.\n3. **Manage Data**: Under **Creator Studio** → **Export & Backup**, you can clear or reset the sample data anytime, or download backups of your work.\n\nYou can explore and test it live here:\n👉 **[Open TaleForge](https://antigravity.luch.dev/site/1e26fe7d-55d6-4a63-af6a-ad89e53d7897/0ac40c1dcf0a901755ab7332/)**",
+      "status": "completed",
+      "model": "gemini-3.8-flash-high",
+      "client_type": "gemini-bridge",
+      "parent_message_id": "56ddd543-aef2-47e1-a3cf-8c693b2894a8",
+      "created_at": "2026-11-06T06:45:28.145Z",
+      "sender": "macOS",
+      "is_cancelled": false
     }
   ]
 }
