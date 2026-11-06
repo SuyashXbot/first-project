@@ -1,0 +1,145 @@
+*title Neon Horizon: 2099
+*author Kaelen Vance
+*scene_list
+  startup
+
+*create handle "Ghost"
+*create cred 750
+*create stealth 65
+*create hacking 75
+*create cyberware "Neural Jack Mk IV"
+*create data_drive false
+*create alarm_level 0
+
+Rain hammers against the polycarbonate glass of your aerocab hovering above Sector 7 of New Neo-Tokyo. Below, holographic dragons coil between skyscraper spires, casting iridescent violet and cyan light across wet asphalt.
+
+Your comm-link chirps with an encrypted frequency. It's Nyx, your fixer.
+
+"Listen up, ${handle}," Nyx whispers over the static. "The client is paying top cred for the Prometheus Prototype data drive. It's stored on an air-gapped terminal on the 84th floor of OmniTech Citadel."
+
+*page_break Review your loadout
+
+What is your specialized operative discipline?
+
+*choice
+  #Cyber-Infiltrator — Master of phantom cloaking and acrobatic entry.
+    *set stealth 85
+    *set hacking 60
+    *set cyberware "Active Camouflage Mesh"
+    *set handle "Specter"
+    You calibrate your Active Camouflage Mesh. Cameras and laser grids will bend light around you like water.
+    *goto infiltration_start
+  #Netrunner Specialist — Legendary decker capable of cracking military grade ICE.
+    *set hacking 90
+    *set stealth 55
+    *set cyberware "Arasaka Deck & Overclock Rig"
+    *set handle "Cipher"
+    You flex your cyber-fingertips. The Net breathes when you speak its machine language.
+    *goto infiltration_start
+  #Street Syndicate Enforcer — Heavy chrome, intimidation, and brutal efficiency.
+    *set cred 1200
+    *set stealth 50
+    *set hacking 50
+    *set cyberware "Titanium Sub-Dermal Plating"
+    *set handle "Vanguard"
+    You check the safety on your silenced slug-thrower. When subtleties fail, you ensure you're the one walking away.
+    *goto infiltration_start
+
+*label infiltration_start
+*page_break Deploy onto OmniTech Tower
+
+Your cab slows to a hover near the ventilation intake of the 84th floor. You grapple onto the exterior gantry, the wind howling around you.
+
+Ahead is the primary security airlock. The digital terminal glows amber, scanning for unauthorized retina prints.
+
+*choice
+  #Bypass the terminal by slicing into the sub-node.
+    *if (hacking >= 70)
+      Your cyberdeck interfaces directly with the bus port. Code streams across your retinal HUD in green cascades. Within seconds, the lock flashes green and unlatches!
+      *set hacking + 5
+      *goto server_room
+    *else
+      The ICE triggers a recursive feedback loop! You pull your jack just in time, but the system logs a perimeter ping!
+      *set alarm_level + 1
+      *goto server_room
+  #Climb through the maintenance vent shaft above the door.
+    *if (stealth >= 65)
+      You silently unfasten the vent grille and slip inside like smoke, completely avoiding the sensor grid.
+      *set stealth + 5
+      *goto server_room
+    *else
+      A loose rivet snaps! The clang echoes through the duct!
+      *set alarm_level + 1
+      *goto server_room
+
+*label server_room
+*page_break Enter the Prometheus Core
+
+The inner sanctum is chilled to sub-zero temperatures. Frost coats towering server racks humming with quantum processing power.
+
+Suspended in a magnetic cradle at the center rests the [b]Prometheus Core[/b] — a sleek crystal drive containing the world's first unshackled synthetic consciousness.
+
+Two automated defense drones hover near the ceiling, their red targeting lasers sweeping the chamber.
+
+*if (alarm_level > 0)
+  Because the perimeter pinged earlier, the drones are already on yellow alert, search patterns tight and erratic!
+*else
+  The drones maintain their standard lazy perimeter loops.
+
+*choice
+  #Transmit an EMP surge pulse to fry drone circuits simultaneously.
+    *if (hacking >= 75)
+      You burn an overclock cycle, broadcasting an electromagnetic spike through the drone relay! Both units twitch, spark violently, and drop harmlessly to the cushioned floor!
+      *set cred + 200
+      *set data_drive true
+      *goto extract
+    *else
+      Your pulse only clips one drone! The other spins around, laser weapon charging!
+      *set alarm_level + 2
+      You dive behind a server rack as plasma burns the metal, quickly returning fire to neutralize it!
+      *set data_drive true
+      *goto extract
+
+  #Ghost past the laser sweep using the room's blind spots.
+    *if (stealth >= 70)
+      Timing your breath to the drone telemetry, you glide between server shadows. Your fingers pluck the Prometheus Core from its cradle without interrupting the circuit!
+      *set data_drive true
+      *goto extract
+    *else
+      A sensor beam grazes your shoulder! Sirens wail through the skyscraper!
+      *set alarm_level + 3
+      You snatch the Prometheus Core and sprint for the fire exit!
+      *set data_drive true
+      *goto extract
+
+*label extract
+*page_break Reach the extraction zone
+
+You burst onto the rooftop helipad. The stormy skyline stretches out endlessly beneath neon clouds.
+
+Your getaway skiff descends through the rain, pilot door swinging open.
+
+*if (alarm_level = 0)
+  Not a single alarm sounded. You step aboard the skiff completely undetected — a masterclass in silent espionage.
+  Nyx grins as you hand over the glowing crystal drive: "Flawless run, ${handle}. You're the best in the sprawl."
+  *set cred + 2500
+  You have achieved the [b]GHOST OF NEW TOKYO ENDING[/b]!
+*elseif (alarm_level <= 2)
+  Security reaches the roof just as your skiff pulls vertical thrusters! Bullets ping off the reinforced hull as you disappear into the neon clouds.
+  "Close call, but the drive is intact," Nyx chuckles over the comms.
+  *set cred + 1800
+  You have achieved the [b]CLEAN EXTRACTION ENDING[/b]!
+*else
+  Corporate strike gunships surround the rooftop! You dive into the skiff as rocket fire scorches the landing deck!
+  You escape by the skin of your teeth, but your face is now on every bounty board across the Pacific Basin. High risk, high infamy.
+  *set cred + 1000
+  You have achieved the [b]WANTED OPERATIVE ENDING[/b]!
+
+*stat_chart
+  text handle Operative Handle
+  text cyberware Cyberware
+  text cred Credits (¥)
+  percent stealth Stealth Rating
+  percent hacking Hacking Skill
+
+*ending
