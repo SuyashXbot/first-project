@@ -76,6 +76,30 @@
       "created_at": "2026-11-06T06:45:28.145Z",
       "sender": "macOS",
       "is_cancelled": false
+    },
+    {
+      "id": "68a21ba2-0c35-4929-9016-828f026235f5",
+      "role": "user",
+      "content": "Hi",
+      "status": "pending",
+      "model": "gemini-3.8-flash-high",
+      "client_type": "gemini-bridge",
+      "parent_message_id": null,
+      "created_at": "2026-11-11T11:56:45.102Z",
+      "sender": "ios",
+      "is_cancelled": false
+    },
+    {
+      "id": "6387de5a-671e-4f55-b423-afec6e5e63d6",
+      "role": "agent",
+      "content": "Hello! How can I help you with **TaleForge** today?",
+      "status": "completed",
+      "model": "gemini-3.8-flash-high",
+      "client_type": "gemini-bridge",
+      "parent_message_id": "68a21ba2-0c35-4929-9016-828f026235f5",
+      "created_at": "2026-11-11T11:56:58.627Z",
+      "sender": "macOS",
+      "is_cancelled": false
     }
   ]
 }
